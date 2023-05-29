@@ -1,0 +1,13 @@
+.error{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #a1a1a1;
+    gap: 1.5em;
+    margin-top: 4em;
+    font-size: 1.3rem;
+}
+  .error-title{
+    display: block;
+  }

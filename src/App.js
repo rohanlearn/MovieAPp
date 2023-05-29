@@ -1,11 +1,13 @@
 import React,{ useEffect, useState } from "react";
 import './App.css'
+import Error from "./Error";
 import SearchIcon from './search.svg'
 import MovieCard from "./MovieCard";
 import Loader from "./Loader";
 const API_URL = 'https://www.omdbapi.com?apikey=a0978664'
 const App = ()=>{
     const [movies,setMovies] = useState([])
+    const[nomovies,setNomovies] = useState(false)
     const [title,setTitle] = useState("")
     const [loader,setLoader] = useState(false)
     const searchMovies = async(title)=>{
@@ -17,6 +19,13 @@ const App = ()=>{
         if (data.Search) {
             setLoader(false); // Call the setLoader function
             setMovies(data.Search); // Set the movies using the data.Search property
+            setNomovies(false)
+          }else{
+            setLoader(false);
+            setNomovies(true)
+            setMovies([])
+
+
           }
 
             },700
@@ -25,6 +34,9 @@ const App = ()=>{
 
     }
     const searchBtnHandler = ()=>{
+        if(nomovies){
+            setNomovies(false)
+        }
         setLoader(true)
         searchMovies(title)
         
@@ -53,6 +65,12 @@ const App = ()=>{
                  onClick={searchBtnHandler}/>
                  
             </div>
+            {nomovies && (
+                <div className="container">
+                <Error/>
+                </div>
+                
+            )}
                   {
                     loader && (
                         <div className="container">
